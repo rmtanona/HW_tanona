@@ -1,0 +1,32 @@
+---
+title: "date_map homework"
+author: "Ronan Tanona"
+date: "2025-02-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+library(purrr)
+library(dplyr)
+```
+
+
+##Exercise 1: Advanced Date Manipulation with lubridate
+Generate a sequence of dates from January 1, 2015 to December 31, 2025, spaced by every two months. Extract the year, quarter, and ISO week number for each date.
+```{r exercise1}
+dates <- seq.Date(from = as.Date("2015-01-01"), 
+                  to = as.Date("2025-12-31"), 
+                  by = "2 months")
+map_dfc(dates, ~ data.frame(
+  date = .x,
+  year = year(.x),
+  quarter = quarter(.x),
+  iso_week = isoweek(.x)
+)) -> result1
+```
+
+Explanation: Here I used created a sequence of dates as required using seq.Date, saving that value sequence to then use in the map_dfc() command. Then, in mapping this sequence with map_dfc(), I pulled the year, quarter, and iso week as required.
+
